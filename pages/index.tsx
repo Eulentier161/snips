@@ -43,6 +43,21 @@ export default function Home() {
           as="textarea"
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Tab") {
+              e.preventDefault();
+              if (
+                e.currentTarget.selectionStart &&
+                e.currentTarget.selectionEnd
+              ) {
+                setInput(
+                  input.substring(0, e.currentTarget.selectionStart) +
+                    "  " +
+                    input.substring(e.currentTarget.selectionEnd)
+                );
+              }
+            }
+          }}
           rows={newLines}
           wrap="off"
         />
